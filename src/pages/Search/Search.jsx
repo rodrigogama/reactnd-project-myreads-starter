@@ -4,23 +4,28 @@ import BookList from "../../components/BookList";
 import Loader from "../../components/Loader";
 import * as BooksAPI from "../../BooksAPI";
 
+const INITIAL_STATE = {
+  books: [],
+  hasSearched: false,
+  isLoading: false,
+  searchTerm: '',
+};
+
 class Search extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      books: [],
-      hasSearched: false,
-      isLoading: false,
-      searchTerm: '',
-    };
+    this.state = { ...INITIAL_STATE };
 
     this.onSearchHandler = this.onSearchHandler.bind(this);
     this.onSelectOptionHandler = this.onSelectOptionHandler.bind(this);
   }
 
   async onSearchHandler(event) {
-    if (!event.target.value) return;
+    if (!event.target.value) {
+      this.setState({ ...INITIAL_STATE });
+      return;
+    };
 
     await this.setState({
       isLoading: true,
