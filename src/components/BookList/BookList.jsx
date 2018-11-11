@@ -5,17 +5,21 @@ import Book from '../Book';
 const BookList = props => {
   return (
     <ol className="books-grid">
-      {props.books.map(book => (
-        <li key={book.id}>
-          <Book
-            title={book.title}
-            author={book.authors.join(', ')}
-            shelf={book.shelf}
-            coverUrl={book.imageLinks.thumbnail}
-            onSelectOption={selectedOption => props.onSelectOption(selectedOption, book)}
-          />
-        </li>
-      ))}
+      {props.books.map(book => {
+        const authors = book.authors ? book.authors.join(', ') : '';
+        const coverUrl = book.imageLinks ? book.imageLinks.thumbnail : '';
+        return (
+          <li key={book.id}>
+            <Book
+              title={book.title}
+              author={authors}
+              shelf={book.shelf}
+              coverUrl={coverUrl}
+              onSelectOption={selectedOption => props.onSelectOption(selectedOption, book)}
+            />
+          </li>
+        )
+      })}
     </ol>
   );
 };
